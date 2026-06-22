@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel Organizador - FCEFN</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">
+    <link rel="icon" type="image/png" href="https://th.bing.com/th/id/OIP.YEv-v6TrbRZH6_qaOvTphgAAAA?w=160&h=180&c=7&r=0&o=7&pid=1.7&rm=3">
+</head>
+<body>
+
+    <div class="header">
+        <h1>Facultad de Ciencias Exactas, Físicas y Naturales - UNSJ</h1>
+    </div>
+
+    <div class="main-wrapper">
+        <div class="sidebar">
+            <ul>
+                <li><a href="{{ url_for('enviarTrabajo') }}">📝 Enviar Trabajo</a></li>
+                <li><a href="{{ url_for('panelOrganizador') }}" class="active">⚙️ Panel Organizador</a></li>
+            </ul>
+        </div>
+
+        <div class="main-content">
+            <div class="card" style="text-align: center;">
+                <h2>Panel de Gestión del Organizador</h2>
+                <hr style="margin-bottom: 20px; border: 0; border-top: 1px solid #eee;">
+                
+                {% with mensajes = get_flashed_messages(with_categories=true) %}
+                {% if mensajes %}
+                    {% for category, mensaje in mensajes %}
+                        <div class="alert {% if category == 'success' %}alert-success{% else %}alert-error{% endif %}">
+                            {{ mensaje }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                {% endwith %}
+                
+                <p style="color: #555; margin-bottom: 35px; font-size: 1rem; line-height: 1.5;">
+                    Presione el botón inferior para distribuir de forma automática los evaluadores asignados a cada especialidad académica sobre los artículos en estado <strong>Pendiente</strong>.
+                </p>
+
+                <form action="{{ url_for('asignarAutomatico') }}" method="POST">
+                    <button type="submit" class="btn btn-organizador">
+                        Ejecutar Asignación Automática ⚙️
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

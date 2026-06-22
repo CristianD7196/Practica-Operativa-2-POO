@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Enviar Trabajo - FCEFN</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">
+    <link rel="icon" type="image/png" href="https://th.bing.com/th/id/OIP.YEv-v6TrbRZH6_qaOvTphgAAAA?w=160&h=180&c=7&r=0&o=7&pid=1.7&rm=3">
+</head>
+<body>
+
+    <div class="header">
+        <h1>Facultad de Ciencias Exactas, Físicas y Naturales - UNSJ</h1>
+    </div>
+
+    <div class="main-wrapper">
+        <div class="sidebar">
+            <ul>
+                <li><a href="{{ url_for('enviarTrabajo') }}" class="active">📝 Enviar Trabajo</a></li>
+                <li><a href="{{ url_for('panelOrganizador') }}">⚙️ Panel Organizador</a></li>
+            </ul>
+        </div>
+
+        <div class="main-content">
+            <div class="card">
+                <h2>Envío de Trabajo de Investigación</h2>
+                <hr style="margin-bottom: 20px; border: 0; border-top: 1px solid #eee;">
+
+                {% with mensajes = get_flashed_messages(with_categories=true) %}
+                {% if mensajes %}
+                    {% for category, mensaje in mensajes %}
+                        <div class="alert {% if category == 'success' %}alert-success{% else %}alert-error{% endif %}">
+                            {{ mensaje }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                {% endwith %}
+
+                <form action="{{ url_for('enviarTrabajo') }}" method="POST" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="titulo">Título del Trabajo:</label>
+                        <input type="text" id="titulo" name="titulo" class="form-input" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="resumen">Resumen / Abstract:</label>
+                        <textarea id="resumen" name="resumen" rows="5" class="form-input" required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="area">Área Temática:</label>
+                        <select id="area" name="area" class="form-input" required>
+                            <option value="">-- Seleccione un área --</option>
+                            {% for codigo, nombre in area.items() %}
+                                <option value="{{ codigo }}">{{ nombre }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="archivo">Archivo del Trabajo (PDF/Doc):</label>
+                        <input type="file" id="archivo" name="archivo" required style="margin-top: 5px;">
+                    </div>
+                    
+                    <h3 style="margin: 25px 0 15px 0; color: #16213e; font-size: 1.2rem;">Datos del Autor Principal</h3>
+                    
+                    <div class="form-group">
+                        <label for="nombre">Nombre:</label>
+                        <input type="text" id="nombre" name="nombre" class="form-input" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="apellido">Apellido:</label>
+                        <input type="text" id="apellido" name="apellido" class="form-input" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="correo">Correo Electrónico:</label>
+                        <input type="email" id="correo" name="correo" class="form-input" required>
+                    </div>
+                    
+                    <div style="text-align: center; margin-top: 25px;">
+                        <button type="submit" class="btn btn-primary">Enviar Trabajo Realizado 🚀</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
