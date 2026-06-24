@@ -10,6 +10,7 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["UPLOAD_FOLDER"] = os.path.join(app.root_path, "uploads")
 os.makedirs(app.config["UPLOAD_FOLDER"], exist_ok=True)
 
+
 from models import db
 
 db.init_app(app)
@@ -32,6 +33,27 @@ def inicio():
     return respInicio
 
 
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    resp = render_template("login.html")
+
+    if request.method == "POST":
+        rol = request.form.get("rol")
+        password = request.form.get("password")
+
+        if rol == "organizador" and password == "admin":
+            resp = redirect(url_for("panelOrganizador"))
+
+        elif rol == "evaluador" and password == "123":
+            resp = redirect(url_for("enviarTrabajo"))
+
+        else:
+            flash("Contraseña incorrecta para el rol seleccionado", "error")
+            resp = redirect(url_for("login"))
+
+    return resp
+
+
 @app.route("/enviar-trabajo", methods=["GET", "POST"])
 def enviarTrabajo():
     respuesta = None
@@ -46,9 +68,12 @@ def enviarTrabajo():
         archivo = request.files.get("archivo")
         nomArchivo = None
 
+        archivo = request.files["archivo"]
+
         if archivo and archivo.filename != "":
             nomArchivo = secure_filename(archivo.filename)
-            archivo.save(os.path.join(app.config["UPLOAD_FOLDER"]), nomArchivo)
+            rutaCompleta = os.path.join(app.config["UPLOAD_FOLDER"], nomArchivo)
+            archivo.save(rutaCompleta)
 
         try:
             trabajoGuardado = GestorBaseDatos.registrarTrabajo(
@@ -58,7 +83,7 @@ def enviarTrabajo():
                 nombre=nombre,
                 apellido=apellido,
                 correo=correo,
-                archivo_nombre=nomArchivo,
+                nomArchivo=nomArchivo,
             )
 
             flash(
@@ -107,7 +132,7 @@ def asignarAutomatico():
         flash("Ocurrio un error en el servidor durante la asignación.", "error")
         print(f"ERROR: {e}")
 
-    respuesta = redirect(url_for("enviarTrabajo"))
+    respuesta = redirect(url_for("panelOrganizador"))
     return respuesta
 
 

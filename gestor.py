@@ -12,12 +12,12 @@ class GestorBaseDatos:
             titulo=titulo,
             resumen=resumen,
             area=area,
-            nomAutor=nombre,
-            apellAutor=apellido,
-            correoAutor=correo,
+            autor_nombre=nombre,
+            autor_apellido=apellido,
+            autor_email=correo,
             estado="Pendiente",
-            fechaEnvio=datetime.now(),
-            nomArchivo=nomArchivo,
+            fecha_envio=datetime.now(),
+            archivo_nombre=nomArchivo,
         )
 
         db.session.add(nuevoTrabajo)

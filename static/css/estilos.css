@@ -145,14 +145,28 @@ body {
     background-color: #c0392b;
 }
 
-/* Alertas */
+/* Alerta base (estilo común para todas) */
 .alert {
-    padding: 12px;
+    padding: 12px 15px;
     margin-bottom: 20px;
     color: white;
     border-radius: 5px;
     font-size: 0.95rem;
     text-align: left;
+    font-weight: 500;
 }
-.alert-success { background-color: #27ae60; }
-.alert-error { background-color: #c0392b; }
+
+/* Color VERDE cuando viene de un éxito */
+.alert-success {
+    background-color: #27ae60 !important;
+}
+
+/* Color ROJO cuando viene de un error */
+.alert-error {
+    background-color: #c0392b !important;
+}
+
+/* Color AZUL Informativo (por si el panel da un 'info') */
+.alert-info {
+    background-color: #2980b9 !important;
+}
