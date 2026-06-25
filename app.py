@@ -29,7 +29,7 @@ AREAS = {
 
 @app.route("/")
 def inicio():
-    respInicio = redirect(url_for("enviarTrabajo"))
+    respInicio = redirect(url_for("login"))
     return respInicio
 
 
@@ -134,6 +134,31 @@ def asignarAutomatico():
 
     respuesta = redirect(url_for("panelOrganizador"))
     return respuesta
+
+
+@app.route("/organizador/registar-evaluador", methods=["POST"])
+def registrarEvaluador():
+    respuesta = None
+
+    nombre = request.form.get("nombreEv")
+    apellido = request.form.get("apellidoEv")
+    area = request.form.get("areaEv")
+    max_trabajos = request.form.get("max_trabajos", type=int)
+
+    try:
+        GestorBaseDatos.registrarEvaluador(
+            nombre=nombre, apellido=apellido, area=area, max_trabajos=max_trabajos
+        )
+
+        flash(f"Evaluador {nombre} {apellido} registrado con ÉXITO!", "success")
+    except Exception as e:
+        db.session.rollback()
+        flash("Ocurrió un error al registar al evaluador", "error")
+        print(f"ERROR: {e}")
+
+        respuesta = redirect(url_for("panelOrganizador"))
+
+        return respuesta
 
 
 if __name__ == "__main__":

@@ -69,3 +69,12 @@ class GestorBaseDatos:
                     trabajosProcesados = trabajosProcesados + 1
         db.session.commit()
         return trabajosProcesados
+
+    @classmethod
+    def registrarEvaluador(cls, nombre, apellido, area, max_trabajos):
+        nuevoEvaluador = Evaluador(
+            nombre=nombre, apellido=apellido, area=area, max_trabajos=max_trabajos
+        )
+
+        db.session.add(nuevoEvaluador)
+        db.session.commit()

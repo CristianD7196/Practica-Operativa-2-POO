@@ -48,6 +48,44 @@
                     </button>
                 </form>
             </div>
+            <div class="card" style="margin-top: 30px;">
+
+                <h2>Alta de Evaluadores Docentes</h2>
+                <hr style="margin-bottom: 20px; border: 0; border-top: 1px solid #eee;">
+                <form action="{{url_for('registrarEvaluador')}}" method="POST">
+                    
+                    <div class="form-group">
+                        <label for="nombreEv">Nombre</label>
+                        <input type="text" id="nombreEv" name="nombreEv" class="form-input" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="apellidoEv">Apellido</label>
+                        <input type="text" id="apellidoEv" name="apellidoEv" class="form-input" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="areaEv">Área Temática Destinada</label>
+                        <select id="areaEv" name="areaEv" class="form-input" required>
+                            <option value="">--Seleccione un área</option>
+                            <option value="EF">Ecofisiología</option>
+                            <option value="ES">Ecosistema</option>
+                            <option value="AE">Agroecología</option>
+                            <option value="RN">Recursos Naturales</option>
+                            <option value="CA">Comunicación ambiental</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="max_trabajos">Cupo máximo de Trabajos</label>
+                        <input type="text" name="max_trabajos" id="max_trabajos" class="form-imput" required>
+                    </div>
+
+                    <div style="text-align: center; margin-top:25px">
+                        <button type="submit" class="btn btn-primary" style="width: 100%; max-width: 450px">Registrar Evaluador 📝</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 
