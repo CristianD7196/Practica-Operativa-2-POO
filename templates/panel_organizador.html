@@ -53,6 +53,11 @@
                 <h2>Alta de Evaluadores Docentes</h2>
                 <hr style="margin-bottom: 20px; border: 0; border-top: 1px solid #eee;">
                 <form action="{{url_for('registrarEvaluador')}}" method="POST">
+
+                    <div class="form-group">
+                        <label for="tituloEv">Titulo del/la Docente</label>
+                        <input type="text" id="tituloEv" name="tituloEv" class="form-input" required>
+                    </div>
                     
                     <div class="form-group">
                         <label for="nombreEv">Nombre</label>
@@ -62,6 +67,11 @@
                     <div class="form-group">
                         <label for="apellidoEv">Apellido</label>
                         <input type="text" id="apellidoEv" name="apellidoEv" class="form-input" required>
+                    </div>
+
+                    <div class="form-goup">
+                        <label for="correoEv">Correo Electrónico</label>
+                        <input type="email" id="correoEv" name="correoEv" class="form-input" required>
                     </div>
 
                     <div class="form-group">

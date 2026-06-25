@@ -10,7 +10,7 @@ class Organizador(db.Model):
     nombre = db.Column(db.String(50), nullable=False)
     apellido = db.Column(db.String(50), nullable=False)
     correo = db.Column(db.String(120), unique=True, nullable=False)
-    clave = db.Column(db.String(100), nullable=False)
+    clave = db.Column(db.String(100), nullable=False, default="admin")
 
 
 class Evaluador(db.Model):
@@ -22,7 +22,7 @@ class Evaluador(db.Model):
     correo = db.Column(db.String(120), unique=True, nullable=False)
     area = db.Column(db.String(3), nullable=False)
     max_trabajos = db.Column(db.Integer, nullable=False, default=3)
-    clave = db.Column(db.String(100), nullable=False)
+    clave = db.Column(db.String(100), nullable=False, default="123")
     asignaciones = db.relationship("Asignacion", backref="evaluador", lazy=True)
 
 

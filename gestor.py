@@ -71,9 +71,16 @@ class GestorBaseDatos:
         return trabajosProcesados
 
     @classmethod
-    def registrarEvaluador(cls, nombre, apellido, area, max_trabajos):
+    def registrarEvaluador(
+        cls, titulo, nombre, apellido, correo, area, max_trabajos, clave="123"
+    ):
         nuevoEvaluador = Evaluador(
-            nombre=nombre, apellido=apellido, area=area, max_trabajos=max_trabajos
+            titulo=titulo,
+            nombre=nombre,
+            apellido=apellido,
+            correo=correo,
+            area=area,
+            max_trabajos=max_trabajos,
         )
 
         db.session.add(nuevoEvaluador)

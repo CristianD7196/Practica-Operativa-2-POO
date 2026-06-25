@@ -140,14 +140,21 @@ def asignarAutomatico():
 def registrarEvaluador():
     respuesta = None
 
+    titulo = request.form.get("tituloEv")
     nombre = request.form.get("nombreEv")
     apellido = request.form.get("apellidoEv")
+    correo = request.form.get("correoEv")
     area = request.form.get("areaEv")
     max_trabajos = request.form.get("max_trabajos", type=int)
 
     try:
         GestorBaseDatos.registrarEvaluador(
-            nombre=nombre, apellido=apellido, area=area, max_trabajos=max_trabajos
+            titulo=titulo,
+            nombre=nombre,
+            apellido=apellido,
+            correo=correo,
+            area=area,
+            max_trabajos=max_trabajos,
         )
 
         flash(f"Evaluador {nombre} {apellido} registrado con ÉXITO!", "success")
@@ -156,9 +163,9 @@ def registrarEvaluador():
         flash("Ocurrió un error al registar al evaluador", "error")
         print(f"ERROR: {e}")
 
-        respuesta = redirect(url_for("panelOrganizador"))
+    respuesta = redirect(url_for("panelOrganizador"))
 
-        return respuesta
+    return respuesta
 
 
 if __name__ == "__main__":
